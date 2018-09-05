@@ -62,7 +62,7 @@ namespace OnBoarding.Models
         string email;
         string password;
         string logo_url;
-       
+        [Key]
         public int Id { get => id; set => id = value; } 
         public string Customer_name { get => customer_name; set => customer_name = value; }
         public string Email { get => email; set => email = value; }
