@@ -9,5 +9,6 @@ namespace OnBoarding.Services
         Task CreateCredentials(Customer customer);
         IEnumerable<Customer> GetAllSignUp();
         Task<Customer> GetSignUp(int id);
+        Customer GetAllCustomer(string Customer_name, string Email);
     }
 }

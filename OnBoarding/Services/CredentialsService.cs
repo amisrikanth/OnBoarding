@@ -28,5 +28,14 @@ namespace OnBoarding.Services
             _context.Customer.Add(customer);
             await _context.SaveChangesAsync();
         }
+        public Customer GetAllCustomer(string Customer_name, string Email)
+        {
+            return  _context.Customer.Where(
+
+                element => element.Customer_name == Customer_name 
+                || element.Email == Email
+                ).ToList()[0];
+                //.Where(x => ((Customer_name == null || x.Customer_name == Customer_name) && (Email == null || x.Email == Email)));
+        }
     }
 }

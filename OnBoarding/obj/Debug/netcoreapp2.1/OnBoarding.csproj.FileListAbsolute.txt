@@ -25,4 +25,3 @@ D:\Workspace\OnBoarding\OnBoarding\obj\Debug\netcoreapp2.1\OnBoarding.AssemblyIn
 D:\Workspace\OnBoarding\OnBoarding\obj\Debug\netcoreapp2.1\OnBoarding.RazorTargetAssemblyInfo.cache
 D:\Workspace\OnBoarding\OnBoarding\obj\Debug\netcoreapp2.1\OnBoarding.dll
 D:\Workspace\OnBoarding\OnBoarding\obj\Debug\netcoreapp2.1\OnBoarding.pdb
-D:\Workspace\OnBoarding\OnBoarding\obj\Debug\netcoreapp2.1\OnBoarding.csprojAssemblyReference.cache
