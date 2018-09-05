@@ -6,7 +6,7 @@ namespace OnBoarding.Services
 {
     public interface ICredentialsService
     {
-        Task CreateCredentials(Customer customer_Signup);
+        Task CreateCredentials(Customer customer);
         IEnumerable<Customer> GetAllSignUp();
         Task<Customer> GetSignUp(int id);
     }

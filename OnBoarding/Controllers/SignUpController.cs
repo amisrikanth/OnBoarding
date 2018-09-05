@@ -21,35 +21,36 @@ namespace OnBoarding.Controllers
         }
         // GET: api/Customer_Signup
         [HttpGet]
-        public IEnumerable<Customer> GetCustomer_Signup()
+        public IEnumerable<Customer> GetCustomer()
         {
             return _service.GetAllSignUp();
         }
         // GET: api/Customer_Signup/5
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetCustomer_Signup([FromRoute] int id)
+        public async Task<IActionResult> GetCustomer([FromRoute] int id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            Customer customer_Signup = await _service.GetSignUp(id);
-            if (customer_Signup == null)
+            Customer customer = await _service.GetSignUp(id);
+            if (customer == null)
             {
                 return NotFound();
             }
-            return Ok(customer_Signup);
+            return Ok(customer);
         }
+
         // POST: api/Customer_Signup
         [HttpPost]
-        public async Task<IActionResult> PostCustomer_Signup([FromBody] Customer customer)
+        public async Task<IActionResult> PostCustomer([FromBody] Customer customer)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
             await _service.CreateCredentials(customer);
-            return CreatedAtAction("GetCustomer_Signup", new { id = customer.Id }, customer);
+            return CreatedAtAction("GetCustomer", new { id = customer.Id }, customer);
         }
     }
 }

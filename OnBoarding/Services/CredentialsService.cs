@@ -23,9 +23,9 @@ namespace OnBoarding.Services
             return await _context.Customer.FindAsync(id);
         }
 
-        public async Task CreateCredentials(Customer customer_Signup)
+        public async Task CreateCredentials(Customer customer)
         {
-            _context.Customer.Add(customer_Signup);
+            _context.Customer.Add(customer);
             await _context.SaveChangesAsync();
         }
     }
