@@ -1,0 +1,14 @@
+D:\Project\onboarding\OnBoarding\bin\Debug\netcoreapp2.1\OnBoarding.deps.json
+D:\Project\onboarding\OnBoarding\bin\Debug\netcoreapp2.1\OnBoarding.runtimeconfig.json
+D:\Project\onboarding\OnBoarding\bin\Debug\netcoreapp2.1\OnBoarding.runtimeconfig.dev.json
+D:\Project\onboarding\OnBoarding\bin\Debug\netcoreapp2.1\OnBoarding.dll
+D:\Project\onboarding\OnBoarding\obj\Debug\netcoreapp2.1\OnBoarding.csproj.CoreCompileInputs.cache
+D:\Project\onboarding\OnBoarding\obj\Debug\netcoreapp2.1\OnBoarding.RazorAssemblyInfo.cache
+D:\Project\onboarding\OnBoarding\obj\Debug\netcoreapp2.1\OnBoarding.RazorAssemblyInfo.cs
+D:\Project\onboarding\OnBoarding\obj\Debug\netcoreapp2.1\OnBoarding.AssemblyInfoInputs.cache
+D:\Project\onboarding\OnBoarding\obj\Debug\netcoreapp2.1\OnBoarding.AssemblyInfo.cs
+D:\Project\onboarding\OnBoarding\obj\Debug\netcoreapp2.1\OnBoarding.RazorTargetAssemblyInfo.cache
+D:\Project\onboarding\OnBoarding\bin\Debug\netcoreapp2.1\OnBoarding.pdb
+D:\Project\onboarding\OnBoarding\obj\Debug\netcoreapp2.1\OnBoarding.dll
+D:\Project\onboarding\OnBoarding\obj\Debug\netcoreapp2.1\OnBoarding.pdb
+D:\Project\onboarding\OnBoarding\obj\Debug\netcoreapp2.1\OnBoarding.csprojAssemblyReference.cache
