@@ -63,7 +63,7 @@ namespace OnBoarding.Controllers
 
         public async Task<IActionResult> ExtractData()
         {
-            string filePathCSV = @"D:\Project\onboarding\OnBoarding\wwwroot\Upload\EndUser.csv";
+            string filePathCSV = @"D:\Workspace\OnBoarding\OnBoarding\wwwroot\Upload\EndUser.csv";
             Task<string> fileData = ReadFileAsync(filePathCSV);
             await fileData;
             string[] contents = fileData.Result.Split('\n');

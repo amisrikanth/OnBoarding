@@ -23,10 +23,19 @@ namespace OnBoarding.Services
             return await _context.Customer.FindAsync(id);
         }
 
-        public async Task CreateCredentials(Customer customer_Signup)
+        public async Task CreateCredentials(Customer customer)
         {
-            _context.Customer.Add(customer_Signup);
+            _context.Customer.Add(customer);
             await _context.SaveChangesAsync();
+        }
+        public Customer GetAllCustomer(string Customer_name, string Email)
+        {
+            return  _context.Customer.Where(
+
+                element => element.Customer_name == Customer_name 
+                || element.Email == Email
+                ).ToList()[0];
+                //.Where(x => ((Customer_name == null || x.Customer_name == Customer_name) && (Email == null || x.Email == Email)));
         }
     }
 }
