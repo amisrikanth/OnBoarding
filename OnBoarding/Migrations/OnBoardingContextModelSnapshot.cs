@@ -25,6 +25,10 @@ namespace OnBoarding.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<long>("CreatedBy");
+
+                    b.Property<DateTime>("CreatedOn");
+
                     b.Property<int?>("DepartmentId");
 
                     b.Property<string>("Email");
@@ -36,6 +40,10 @@ namespace OnBoarding.Migrations
                     b.Property<string>("Phone_no");
 
                     b.Property<string>("Profile_img_url");
+
+                    b.Property<long>("UpdatedBy");
+
+                    b.Property<DateTime>("UpdatedOn");
 
                     b.HasKey("Id");
 
@@ -52,6 +60,10 @@ namespace OnBoarding.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<long>("CreatedBy");
+
+                    b.Property<DateTime>("CreatedOn");
+
                     b.Property<string>("Customer_name");
 
                     b.Property<string>("Email");
@@ -59,6 +71,10 @@ namespace OnBoarding.Migrations
                     b.Property<string>("Logo_url");
 
                     b.Property<string>("Password");
+
+                    b.Property<long>("UpdatedBy");
+
+                    b.Property<DateTime>("UpdatedOn");
 
                     b.HasKey("Id");
 
@@ -71,7 +87,15 @@ namespace OnBoarding.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<long>("CreatedBy");
+
+                    b.Property<DateTime>("CreatedOn");
+
                     b.Property<string>("DepartmentName");
+
+                    b.Property<long>("UpdatedBy");
+
+                    b.Property<DateTime>("UpdatedOn");
 
                     b.HasKey("DepartmentId");
 
@@ -84,6 +108,10 @@ namespace OnBoarding.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<long>("CreatedBy");
+
+                    b.Property<DateTime>("CreatedOn");
+
                     b.Property<string>("Email");
 
                     b.Property<string>("Name");
@@ -93,6 +121,10 @@ namespace OnBoarding.Migrations
                     b.Property<string>("Phone_no");
 
                     b.Property<string>("Profile_img_url");
+
+                    b.Property<long>("UpdatedBy");
+
+                    b.Property<DateTime>("UpdatedOn");
 
                     b.HasKey("Id");
 
@@ -107,11 +139,19 @@ namespace OnBoarding.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<long>("CreatedBy");
+
+                    b.Property<DateTime>("CreatedOn");
+
                     b.Property<int?>("EndUserId");
 
                     b.Property<string>("Identifier");
 
                     b.Property<string>("Source");
+
+                    b.Property<long>("UpdatedBy");
+
+                    b.Property<DateTime>("UpdatedOn");
 
                     b.HasKey("SocialId");
 

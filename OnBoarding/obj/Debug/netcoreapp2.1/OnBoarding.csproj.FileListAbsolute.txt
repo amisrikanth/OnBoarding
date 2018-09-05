@@ -11,7 +11,6 @@ D:\Project\onboarding\OnBoarding\obj\Debug\netcoreapp2.1\OnBoarding.RazorTargetA
 D:\Project\onboarding\OnBoarding\bin\Debug\netcoreapp2.1\OnBoarding.pdb
 D:\Project\onboarding\OnBoarding\obj\Debug\netcoreapp2.1\OnBoarding.dll
 D:\Project\onboarding\OnBoarding\obj\Debug\netcoreapp2.1\OnBoarding.pdb
-D:\Project\onboarding\OnBoarding\obj\Debug\netcoreapp2.1\OnBoarding.csprojAssemblyReference.cache
 D:\Workspace\OnBoarding\OnBoarding\bin\Debug\netcoreapp2.1\OnBoarding.deps.json
 D:\Workspace\OnBoarding\OnBoarding\bin\Debug\netcoreapp2.1\OnBoarding.runtimeconfig.json
 D:\Workspace\OnBoarding\OnBoarding\bin\Debug\netcoreapp2.1\OnBoarding.runtimeconfig.dev.json
@@ -25,3 +24,4 @@ D:\Workspace\OnBoarding\OnBoarding\obj\Debug\netcoreapp2.1\OnBoarding.AssemblyIn
 D:\Workspace\OnBoarding\OnBoarding\obj\Debug\netcoreapp2.1\OnBoarding.RazorTargetAssemblyInfo.cache
 D:\Workspace\OnBoarding\OnBoarding\obj\Debug\netcoreapp2.1\OnBoarding.dll
 D:\Workspace\OnBoarding\OnBoarding\obj\Debug\netcoreapp2.1\OnBoarding.pdb
+D:\Project\onboarding\OnBoarding\obj\Debug\netcoreapp2.1\OnBoarding.csprojAssemblyReference.cache

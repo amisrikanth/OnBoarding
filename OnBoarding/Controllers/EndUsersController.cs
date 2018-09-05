@@ -51,19 +51,19 @@ namespace OnBoarding.Controllers
 
         // POST: api/EndUsers
         [HttpPost]
-        public async Task<IActionResult> PostEndUser()
+        public async Task<IActionResult> PostEndUser([FromBody] Customer customer)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            return await ExtractData();
+            return await ExtractData(customer);
         }
 
-        public async Task<IActionResult> ExtractData()
+        public async Task<IActionResult> ExtractData(Customer customer)
         {
-            string filePathCSV = @"D:\Workspace\OnBoarding\OnBoarding\wwwroot\Upload\EndUser.csv";
+            string filePathCSV = @"./wwwroot/Upload/EndUser.csv";
             Task<string> fileData = ReadFileAsync(filePathCSV);
             await fileData;
             string[] contents = fileData.Result.Split('\n');
@@ -84,29 +84,21 @@ namespace OnBoarding.Controllers
                 indexOfSocialAccountSource[i]= Array.IndexOf(header, $"SocialId/{i}/Source");
                 indexOfSocialAccountIdentifier[i] = Array.IndexOf(header, $"SocialId/{i}/Identifier");
             }
-            int indexOfOrganizationName = Array.IndexOf(header, "Organization/CustomerName");
-            int indexOfOrganizationEmail = Array.IndexOf(header, "Organization/Email");
-            int indexOfOrganizationPwd = Array.IndexOf(header, "Organization/Password");
-            int indexOfOrganizationLogo = Array.IndexOf(header, "Organization/LogoUrl");
 
             for (int i = 1; i <= contents.Count() - 1; i++)
             {
                 string[] info = contents[i].Split(',');
 
-                EndUser agent = new EndUser
+                EndUser endUser = new EndUser
                 {
                     Name = info[indexOfName].Trim('\"'),
                     Email = info[indexOfEmail].Trim('\"'),
                     Phone_no = info[indexOfPhoneNumber].Trim('\"'),
                     Profile_img_url = info[indexOfProfileImage].Trim('\"'),
                     SocialId = new List<UserSocialId>(),
-                    Organization = _context.Customer.FirstOrDefault(x => x.Customer_name == info[indexOfOrganizationName].Trim('\"')) ?? new Customer
-                    {
-                        Customer_name = info[indexOfOrganizationName].Trim('\"'),
-                        Email = info[indexOfOrganizationEmail].Trim('\"'),
-                        Password = info[indexOfOrganizationPwd].Trim('\"'),
-                        Logo_url = info[indexOfOrganizationLogo].Replace("\r", string.Empty).Trim('\"')
-                    }
+                    Organization = _context.Customer.FirstOrDefault(x => x.Customer_name == customer.Customer_name) ?? customer,
+                    CreatedOn = DateTime.Now,
+                    UpdatedOn = DateTime.Now
 
                 };
 
@@ -114,11 +106,13 @@ namespace OnBoarding.Controllers
                 {
                     if (info[indexOfSocialAccountSource[j]].Trim('\"') != string.Empty && info[indexOfSocialAccountIdentifier[j]].Trim('\"') != string.Empty)
                     {
-                        agent.SocialId.Add(new UserSocialId { Source = info[indexOfSocialAccountSource[j]].Trim('\"'), Identifier = info[indexOfSocialAccountIdentifier[j]].Trim('\"') });
+                        endUser.SocialId.Add(new UserSocialId { Source = info[indexOfSocialAccountSource[j]].Trim('\"'), Identifier = info[indexOfSocialAccountIdentifier[j]].Trim('\"'),
+                            CreatedOn = DateTime.Now,UpdatedOn = DateTime.Now
+                        });
                     }
                 }
         
-                _context.EndUser.Add(agent);
+                _context.EndUser.Add(endUser);
                 await _context.SaveChangesAsync();
 
             }
