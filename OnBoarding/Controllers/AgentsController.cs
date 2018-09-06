@@ -83,16 +83,19 @@ namespace OnBoarding.Controllers
             {
                 string[] info = contents[i].Split(',');
 
-                Agent agent = new Agent();
+                Agent agent = new Agent
+                {
+                    Name = info[indexOfName].Trim('\"'),
+                    Email = info[indexOfEmail].Trim('\"'),
+                    Phone_no = info[indexOfPhoneNumber].Trim('\"'),
+                    Profile_img_url = info[indexOfProfileImage].Trim('\"'),
+                    Department = _context.Department.FirstOrDefault(x => x.DepartmentName == info[indexOfDepartment].Trim('\"')) ?? new Department { DepartmentName = info[indexOfDepartment].Trim('\"'), CreatedOn = DateTime.Now, UpdatedOn = DateTime.Now },
+                    Organization = _context.Customer.FirstOrDefault(x => x.Customer_name == customer.Customer_name) ?? customer,
+                    CreatedOn = DateTime.Now,
+                    UpdatedOn = DateTime.Now
+                };
 
-                agent.Name = info[indexOfName].Trim('\"');
-                    agent.Email = info[indexOfEmail].Trim('\"');
-                    agent.Phone_no = info[indexOfPhoneNumber].Trim('\"');
-                    agent.Profile_img_url = info[indexOfProfileImage].Trim('\"');
-                    agent.Department = _context.Department.FirstOrDefault(x => x.DepartmentName == info[indexOfDepartment].Trim('\"')) ?? new Department { DepartmentName = info[indexOfDepartment].Trim('\"'), CreatedOn=DateTime.Now,UpdatedOn=DateTime.Now };
-                    agent.Organization = _context.Customer.FirstOrDefault(x => x.Customer_name == customer.Customer_name) ?? customer;
-                agent.CreatedOn = DateTime.Now;
-                    agent.UpdatedOn = DateTime.Now;
+                _context.Agent.Add(agent);
                 await _context.SaveChangesAsync();
 
             }
