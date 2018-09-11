@@ -19,38 +19,38 @@ namespace OnBoarding.Controllers
         {
             _service = service;
         }
-        // GET: api/Customer_Signup
+        // GET: api/Organisation_Signup
         [HttpGet]
-        public IEnumerable<Customer> GetCustomer()
+        public IEnumerable<Organisation> GetOrganisation()
         {
             return _service.GetAllSignUp();
         }
-        // GET: api/Customer_Signup/5
+        // GET: api/Organisation_Signup/5
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetCustomer([FromRoute] int id)
+        public async Task<IActionResult> GetOrganisation([FromRoute] long id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            Customer customer = await _service.GetSignUp(id);
-            if (customer == null)
+            Organisation Organisation = await _service.GetSignUp(id);
+            if (Organisation == null)
             {
                 return NotFound();
             }
-            return Ok(customer);
+            return Ok(Organisation);
         }
 
-        // POST: api/Customer_Signup
+        // POST: api/Organisation_Signup
         [HttpPost]
-        public async Task<IActionResult> PostCustomer([FromBody] Customer customer)
+        public async Task<IActionResult> PostOrganisation([FromBody] Organisation Organisation)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            await _service.CreateCredentials(customer);
-            return CreatedAtAction("GetCustomer", new { id = customer.Id }, customer);
+            await _service.CreateCredentials(Organisation);
+            return CreatedAtAction("GetOrganisation", new { id = Organisation.Id }, Organisation);
         }
     }
 }

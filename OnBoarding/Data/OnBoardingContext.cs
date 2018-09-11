@@ -15,8 +15,10 @@ namespace OnBoarding.Models
         }
 
         public DbSet<OnBoarding.Models.Agent> Agent { get; set; }
-        public DbSet<OnBoarding.Models.Customer> Customer { get; set; }
+        public DbSet<OnBoarding.Models.Organisation> Organisation { get; set; }
         public DbSet<OnBoarding.Models.Department> Department { get; set; }
         public DbSet<OnBoarding.Models.EndUser> EndUser { get; set; }
+        public DbSet<OnBoarding.Models.UserSocialId> UserSocialId { get; set; }
+
     }
 }

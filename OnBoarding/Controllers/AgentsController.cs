@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using OnBoarding.Models;
+using OnBoarding.Services;
 
 namespace OnBoarding.Controllers
 {
@@ -13,31 +14,41 @@ namespace OnBoarding.Controllers
     [ApiController]
     public class AgentsController : ControllerBase
     {
-        private readonly OnBoardingContext _context;
+        private readonly IAgentService _service;
 
-        public AgentsController(OnBoardingContext context)
+        public AgentsController(IAgentService service)
         {
-            _context = context;
+            _service = service;
         }
 
         // GET: api/Agents
         [HttpGet]
-        public IEnumerable<Agent> GetAgent()
+        public IEnumerable<Agent> GetAgents()
         {
-            return _context.Agent.Include(x => x.Department).Include(x => x.Organization);
+            return _service.RetrieveAgent();
+        }
+        [HttpGet("query")]
+        public async Task<IActionResult> GetAgentAsync([FromQuery(Name = "Name")] string Name, [FromQuery(Name = "Email")] string Email, [FromQuery(Name = "phonenumber")] string PhoneNumber)
+        {
+            string email = _service.TrimInput(Email);
+            string name = _service.TrimInput(Name);
+            string phoneNumber = _service.TrimInput(PhoneNumber);
+            return Ok(await _service.RetrieveAgentDto(email, name, phoneNumber));
+
         }
 
         // GET: api/Agents/5
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetAgent([FromRoute] int id)
+        public async Task<IActionResult> GetAgent([FromRoute] long id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var agent = await _context.Agent.FindAsync(id);
+            Agent agent = await _service.RetrieveAgentById(id);
 
+           
             if (agent == null)
             {
                 return NotFound();
@@ -49,66 +60,16 @@ namespace OnBoarding.Controllers
 
         // POST: api/Agents
         [HttpPost]
-        public async Task<IActionResult> PostAgent([FromBody] Customer customer)
+        public async Task<IActionResult> PostAgent([FromBody] Organisation Organisation)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            return await ExtractData(customer);
-        }
-
-
-        public async Task<IActionResult> ExtractData(Customer customer)
-        {
-            string filePathCSV = @"./wwwroot/Upload/agent.csv";
-            Task<string> fileData = ReadFileAsync(filePathCSV);
-            await fileData;
-            string[] contents = fileData.Result.Split('\n');
-
-
-            string[] header = contents[0].Split(',');
-            for (int i = 0; i < header.Length; i++)
-            {
-                header[i] = header[i].Replace("\r",string.Empty).Trim('\"');
-            }
-            int indexOfName = Array.IndexOf(header, "Name");
-            int indexOfEmail = Array.IndexOf(header, "Email");
-            int indexOfPhoneNumber = Array.IndexOf(header, "PhoneNumber");
-            int indexOfProfileImage = Array.IndexOf(header, "ProfileImg");
-            int indexOfDepartment = Array.IndexOf(header, "Department");
-
-            for (int i = 1; i <= contents.Count() - 1; i++)
-            {
-                string[] info = contents[i].Split(',');
-
-                Agent agent = new Agent
-                {
-                    Name = info[indexOfName].Trim('\"'),
-                    Email = info[indexOfEmail].Trim('\"'),
-                    Phone_no = info[indexOfPhoneNumber].Trim('\"'),
-                    Profile_img_url = info[indexOfProfileImage].Trim('\"'),
-                    Department = _context.Department.FirstOrDefault(x => x.DepartmentName == info[indexOfDepartment].Trim('\"')) ?? new Department { DepartmentName = info[indexOfDepartment].Trim('\"'), CreatedOn = DateTime.Now, UpdatedOn = DateTime.Now },
-                    Organization = _context.Customer.FirstOrDefault(x => x.Customer_name == customer.Customer_name) ?? customer,
-                    CreatedOn = DateTime.Now,
-                    UpdatedOn = DateTime.Now
-                };
-
-                _context.Agent.Add(agent);
-                await _context.SaveChangesAsync();
-
-            }
+            await _service.ExtractData(Organisation);
             return Ok();
         }
-        public static async Task<string> ReadFileAsync(string filepath)
-        {
-            string fileData = "";
-            using (StreamReader streamReader = new StreamReader(filepath))
-            {
-                fileData = await streamReader.ReadToEndAsync();
-            }
-            return fileData;
-        }
+
     }
 }

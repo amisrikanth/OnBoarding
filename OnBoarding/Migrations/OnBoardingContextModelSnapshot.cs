@@ -21,7 +21,7 @@ namespace OnBoarding.Migrations
 
             modelBuilder.Entity("OnBoarding.Models.Agent", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -29,17 +29,17 @@ namespace OnBoarding.Migrations
 
                     b.Property<DateTime>("CreatedOn");
 
-                    b.Property<int?>("DepartmentId");
+                    b.Property<long?>("DepartmentId");
 
                     b.Property<string>("Email");
 
                     b.Property<string>("Name");
 
-                    b.Property<int?>("OrganizationId");
+                    b.Property<long?>("OrganizationId");
 
-                    b.Property<string>("Phone_no");
+                    b.Property<string>("PhoneNumber");
 
-                    b.Property<string>("Profile_img_url");
+                    b.Property<string>("ProfileImgUrl");
 
                     b.Property<long>("UpdatedBy");
 
@@ -54,36 +54,9 @@ namespace OnBoarding.Migrations
                     b.ToTable("Agent");
                 });
 
-            modelBuilder.Entity("OnBoarding.Models.Customer", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<long>("CreatedBy");
-
-                    b.Property<DateTime>("CreatedOn");
-
-                    b.Property<string>("Customer_name");
-
-                    b.Property<string>("Email");
-
-                    b.Property<string>("Logo_url");
-
-                    b.Property<string>("Password");
-
-                    b.Property<long>("UpdatedBy");
-
-                    b.Property<DateTime>("UpdatedOn");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Customer");
-                });
-
             modelBuilder.Entity("OnBoarding.Models.Department", b =>
                 {
-                    b.Property<int>("DepartmentId")
+                    b.Property<long>("DepartmentId")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -104,7 +77,7 @@ namespace OnBoarding.Migrations
 
             modelBuilder.Entity("OnBoarding.Models.EndUser", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -116,11 +89,11 @@ namespace OnBoarding.Migrations
 
                     b.Property<string>("Name");
 
-                    b.Property<int?>("OrganizationId");
+                    b.Property<long?>("OrganizationId");
 
-                    b.Property<string>("Phone_no");
+                    b.Property<string>("PhoneNumber");
 
-                    b.Property<string>("Profile_img_url");
+                    b.Property<string>("ProfileImgUrl");
 
                     b.Property<long>("UpdatedBy");
 
@@ -133,9 +106,9 @@ namespace OnBoarding.Migrations
                     b.ToTable("EndUser");
                 });
 
-            modelBuilder.Entity("OnBoarding.Models.UserSocialId", b =>
+            modelBuilder.Entity("OnBoarding.Models.Organisation", b =>
                 {
-                    b.Property<int>("SocialId")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -143,7 +116,36 @@ namespace OnBoarding.Migrations
 
                     b.Property<DateTime>("CreatedOn");
 
-                    b.Property<int?>("EndUserId");
+                    b.Property<string>("Email");
+
+                    b.Property<string>("LogoUrl");
+
+                    b.Property<string>("OrganisationDisplayName");
+
+                    b.Property<string>("OrganisationName");
+
+                    b.Property<string>("Password");
+
+                    b.Property<long>("UpdatedBy");
+
+                    b.Property<DateTime>("UpdatedOn");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Organisation");
+                });
+
+            modelBuilder.Entity("OnBoarding.Models.UserSocialId", b =>
+                {
+                    b.Property<long>("SocialId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<long>("CreatedBy");
+
+                    b.Property<DateTime>("CreatedOn");
+
+                    b.Property<long?>("EndUserId");
 
                     b.Property<string>("Identifier");
 
@@ -166,14 +168,14 @@ namespace OnBoarding.Migrations
                         .WithMany()
                         .HasForeignKey("DepartmentId");
 
-                    b.HasOne("OnBoarding.Models.Customer", "Organization")
+                    b.HasOne("OnBoarding.Models.Organisation", "Organization")
                         .WithMany()
                         .HasForeignKey("OrganizationId");
                 });
 
             modelBuilder.Entity("OnBoarding.Models.EndUser", b =>
                 {
-                    b.HasOne("OnBoarding.Models.Customer", "Organization")
+                    b.HasOne("OnBoarding.Models.Organisation", "Organization")
                         .WithMany()
                         .HasForeignKey("OrganizationId");
                 });

@@ -14,28 +14,28 @@ namespace OnBoarding.Services
         {
             _context = context;
         }
-        public IEnumerable<Customer> GetAllSignUp()
+        public IEnumerable<Organisation> GetAllSignUp()
         {
-            return _context.Customer;
+            return _context.Organisation;
         }
-        public async Task<Customer> GetSignUp(int id)
+        public async Task<Organisation> GetSignUp(long id)
         {
-            return await _context.Customer.FindAsync(id);
+            return await _context.Organisation.FindAsync(id);
         }
 
-        public async Task CreateCredentials(Customer customer)
+        public async Task CreateCredentials(Organisation organisation)
         {
-            _context.Customer.Add(customer);
+            _context.Organisation.Add(organisation);
             await _context.SaveChangesAsync();
         }
-        public Customer GetAllCustomer(string Customer_name, string Email)
+        public Organisation GetAllOrganisation(string organisationName, string Email)
         {
-            return  _context.Customer.Where(
+            return  _context.Organisation.Where(
 
-                element => element.Customer_name == Customer_name 
+                element => element.OrganisationName == organisationName 
                 || element.Email == Email
                 ).ToList()[0];
-                //.Where(x => ((Customer_name == null || x.Customer_name == Customer_name) && (Email == null || x.Email == Email)));
+                //.Where(x => ((Organisation_name == null || x.Organisation_name == Organisation_name) && (Email == null || x.Email == Email)));
         }
     }
 }

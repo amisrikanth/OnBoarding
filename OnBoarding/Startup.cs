@@ -40,6 +40,8 @@ namespace OnBoarding
             services.AddDbContext<OnBoardingContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("OnBoardingContext")));
             services.AddScoped<ICredentialsService, CredentialsService>();
+            services.AddScoped<IEndUserService, EndUserService>();
+            services.AddScoped<IAgentService, AgentService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

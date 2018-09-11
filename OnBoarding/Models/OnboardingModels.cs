@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
 namespace OnBoarding.Models
@@ -9,7 +10,7 @@ namespace OnBoarding.Models
 
     public class Department
     {
-        int departmentId;
+        long departmentId;
         string department;
         DateTime createdOn;
         long createdBy;
@@ -17,7 +18,7 @@ namespace OnBoarding.Models
         long updatedBy;
 
         [Key]
-        public int DepartmentId { get => departmentId; set => departmentId = value; }
+        public long DepartmentId { get => departmentId; set => departmentId = value; }
         public string DepartmentName { get => department; set => department = value; }
         public DateTime CreatedOn { get => createdOn; set => createdOn = value; }
         public long CreatedBy { get => createdBy; set => createdBy = value; }
@@ -27,7 +28,7 @@ namespace OnBoarding.Models
 
     public class UserSocialId
     {
-        int socialId;
+        long socialId;
         string source;
         string identifier;
         DateTime createdOn;
@@ -36,7 +37,7 @@ namespace OnBoarding.Models
         long updatedBy;
 
         [Key]
-        public int SocialId { get => socialId; set => socialId = value; }
+        public long SocialId { get => socialId; set => socialId = value; }
         public string Source { get => source; set => source = value; }
         public string Identifier { get => identifier; set => identifier = value; }
         public DateTime CreatedOn { get => createdOn; set => createdOn = value; }
@@ -47,27 +48,27 @@ namespace OnBoarding.Models
 
     public class User
     {
-        int id;
+        long id;
         string name;
         string email;
-        string phone_no;
-        string profile_img_url;
-        Customer organization;
+        string phoneNumber;
+        string profileImgUrl;
+        Organisation organization;
         DateTime createdOn;
         long createdBy;
         DateTime updatedOn;
         long updatedBy;
         [Key]
-        public int Id { get => id; set => id = value; }
+        public long Id { get => id; set => id = value; }
         public string Name { get => name; set => name = value; }
         public string Email { get => email; set => email = value; }
-        public string Phone_no { get => phone_no; set => phone_no = value; }
-        public string Profile_img_url { get => profile_img_url; set => profile_img_url = value; }
-        public Customer Organization { get => organization; set => organization = value; }
+        public Organisation Organization { get => organization; set => organization = value; }
         public DateTime CreatedOn { get => createdOn; set => createdOn = value; }
         public long CreatedBy { get => createdBy; set => createdBy = value; }
         public DateTime UpdatedOn { get => updatedOn; set => updatedOn = value; }
         public long UpdatedBy { get => updatedBy; set => updatedBy = value; }
+        public string PhoneNumber { get => phoneNumber; set => phoneNumber = value; }
+        public string ProfileImgUrl { get => profileImgUrl; set => profileImgUrl = value; }
     }
 
     public class EndUser : User
@@ -77,27 +78,29 @@ namespace OnBoarding.Models
         public List<UserSocialId> SocialId { get => socialId; set => socialId = value; }
     }
 
-    public class Customer
+    public class Organisation
     {
-        int id;
-        string customer_name;
+        long id;
+        string organisationName;
+        string organisationDisplayName;
         string email;
         string password;
-        string logo_url;
+        string logoUrl;
         DateTime createdOn;
         long createdBy;
         DateTime updatedOn;
         long updatedBy;
         [Key]
-        public int Id { get => id; set => id = value; } 
-        public string Customer_name { get => customer_name; set => customer_name = value; }
+        public long Id { get => id; set => id = value; } 
         public string Email { get => email; set => email = value; }
         public string Password { get => password; set => password = value; }
-        public string Logo_url { get => logo_url; set => logo_url = value; }
+        public string LogoUrl { get => logoUrl; set => logoUrl = value; }
         public DateTime CreatedOn { get => createdOn; set => createdOn = value; }
         public long CreatedBy { get => createdBy; set => createdBy = value; }
         public DateTime UpdatedOn { get => updatedOn; set => updatedOn = value; }
         public long UpdatedBy { get => updatedBy; set => updatedBy = value; }
+        public string OrganisationName { get => organisationName; set => organisationName = value; }
+        public string OrganisationDisplayName { get => organisationDisplayName; set => organisationDisplayName = value; }
     }
     public class Agent : User
     {

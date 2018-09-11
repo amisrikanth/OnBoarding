@@ -1,4 +1,4 @@
-Name,Email,PhoneNumber,ProfileImg,Department,Organization/CustomerName,Organization/Email,Organization/Password,Organization/LogoUrl
+Name,Email,PhoneNumber,ProfileImg,Department,Organization/OrganisationName,Organization/Email,Organization/Password,Organization/LogoUrl
 Nishant,nishant@stackroute.in,1234567890,www.profileimgnishant.in,mentor,stackroute,stackroute@gmail.in,stackroute1,logo@stackroute.com
 Sachin,sachin@stackroute.in,0973536767,www.profileimgsachin.in,mentor,stackroute,stackroute@gmail.in,stackroute1,logo@stackroute.com
 Tarangini,tarangini@stackroute.in,5367285371,www.profileimgtarangini.in,logistics,stackroute,stackroute@gmail.in,stackroute1,logo@stackroute.com

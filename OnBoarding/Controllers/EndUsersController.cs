@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using OnBoarding.Models;
 using System.IO;
 using System.Text.RegularExpressions;
+using OnBoarding.Services;
 
 namespace OnBoarding.Controllers
 {
@@ -15,30 +16,32 @@ namespace OnBoarding.Controllers
     [ApiController]
     public class EndUsersController : ControllerBase
     {
-        private readonly OnBoardingContext _context;
 
-        public EndUsersController(OnBoardingContext context)
+        private IEndUserService _service;
+        public EndUsersController(IEndUserService service)
         {
-            _context = context;
+            _service = service;
         }
 
         // GET: api/EndUsers
         [HttpGet]
         public IEnumerable<EndUser> GetEndUser()
         {
-            return _context.EndUser.Include(x=>x.SocialId).Include(x=>x.Organization);
+            return _service.RetrieveUser();
         }
+
+       
 
         // GET: api/EndUsers/5
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetEndUser([FromRoute] int id)
+        public async Task<IActionResult> GetEndUser([FromRoute] long id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var endUser = await _context.EndUser.FindAsync(id);
+            EndUser endUser = await _service.RetrieveUserById(id);
 
             if (endUser == null)
             {
@@ -49,83 +52,31 @@ namespace OnBoarding.Controllers
         }
 
 
+
+        [HttpGet("query")]
+        public async Task<IActionResult> GetEndUser([FromQuery(Name = "Name")] string Name, [FromQuery(Name = "Email")] string Email, [FromQuery(Name = "phonenumber")] string PhoneNumber)
+        {
+            string email = _service.TrimInput(Email);
+            string name = _service.TrimInput(Name);
+            string phoneNumber = _service.TrimInput(PhoneNumber);
+            return Ok(await _service.RetrieveUserDto(email, name, phoneNumber));
+
+        }
+
+       
+
+
         // POST: api/EndUsers
         [HttpPost]
-        public async Task<IActionResult> PostEndUser([FromBody] Customer customer)
+        public async Task<IActionResult> PostEndUser([FromBody] Organisation Organisation)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-
-            return await ExtractData(customer);
-        }
-
-        public async Task<IActionResult> ExtractData(Customer customer)
-        {
-            string filePathCSV = @"./wwwroot/Upload/EndUser.csv";
-            Task<string> fileData = ReadFileAsync(filePathCSV);
-            await fileData;
-            string[] contents = fileData.Result.Split('\n');
-            int countOfSocialIds = Regex.Matches(contents[0], "/Source").Count;
-            string[] header = contents[0].Split(',');
-            for (int i = 0; i < header.Length; i++)
-            {
-                header[i] = header[i].Replace("\r", string.Empty).Trim('\"');
-            }
-            int indexOfName = Array.IndexOf(header, "Name");
-            int indexOfEmail = Array.IndexOf(header, "Email");
-            int indexOfPhoneNumber = Array.IndexOf(header, "PhoneNumber");
-            int indexOfProfileImage = Array.IndexOf(header, "ProfileImgUrl");
-            int[] indexOfSocialAccountSource = new int[countOfSocialIds];
-            int[] indexOfSocialAccountIdentifier = new int[countOfSocialIds];
-            for (int i=0;i<countOfSocialIds;i++)
-            {
-                indexOfSocialAccountSource[i]= Array.IndexOf(header, $"SocialId/{i}/Source");
-                indexOfSocialAccountIdentifier[i] = Array.IndexOf(header, $"SocialId/{i}/Identifier");
-            }
-
-            for (int i = 1; i <= contents.Count() - 1; i++)
-            {
-                string[] info = contents[i].Split(',');
-
-                EndUser endUser = new EndUser
-                {
-                    Name = info[indexOfName].Trim('\"'),
-                    Email = info[indexOfEmail].Trim('\"'),
-                    Phone_no = info[indexOfPhoneNumber].Trim('\"'),
-                    Profile_img_url = info[indexOfProfileImage].Trim('\"'),
-                    SocialId = new List<UserSocialId>(),
-                    Organization = _context.Customer.FirstOrDefault(x => x.Customer_name == customer.Customer_name) ?? customer,
-                    CreatedOn = DateTime.Now,
-                    UpdatedOn = DateTime.Now
-
-                };
-
-                for (int j = 0; j < countOfSocialIds; j++)
-                {
-                    if (info[indexOfSocialAccountSource[j]].Trim('\"') != string.Empty && info[indexOfSocialAccountIdentifier[j]].Trim('\"') != string.Empty)
-                    {
-                        endUser.SocialId.Add(new UserSocialId { Source = info[indexOfSocialAccountSource[j]].Trim('\"'), Identifier = info[indexOfSocialAccountIdentifier[j]].Trim('\"'),
-                            CreatedOn = DateTime.Now,UpdatedOn = DateTime.Now
-                        });
-                    }
-                }
-        
-                _context.EndUser.Add(endUser);
-                await _context.SaveChangesAsync();
-
-            }
+            await _service.ExtractData(Organisation);
             return Ok();
         }
-        public static async Task<string> ReadFileAsync(string filepath)
-        {
-            string fileData = "";
-            using (StreamReader streamReader = new StreamReader(filepath))
-            {
-                fileData = await streamReader.ReadToEndAsync();
-            }
-            return fileData;
-        }
+
     }
 }
