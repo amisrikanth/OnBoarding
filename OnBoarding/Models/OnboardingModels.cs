@@ -20,7 +20,7 @@ namespace OnBoarding.Models
         [Key]
         public long DepartmentId { get => departmentId; set => departmentId = value; }
         public string DepartmentName { get => department; set => department = value; }
-        public DateTime CreatedOn { get => createdOn; set => createdOn = value; }
+        public DateTime CreatedOn { get => createdOn; set => createdOn = DateTime.Now; }
         public long CreatedBy { get => createdBy; set => createdBy = value; }
         public DateTime UpdatedOn { get => updatedOn; set => updatedOn = value; }
         public long UpdatedBy { get => updatedBy; set => updatedBy = value; }
@@ -40,7 +40,7 @@ namespace OnBoarding.Models
         public long SocialId { get => socialId; set => socialId = value; }
         public string Source { get => source; set => source = value; }
         public string Identifier { get => identifier; set => identifier = value; }
-        public DateTime CreatedOn { get => createdOn; set => createdOn = value; }
+        public DateTime CreatedOn { get => createdOn; set => createdOn = DateTime.Now; }
         public long CreatedBy { get => createdBy; set => createdBy = value; }
         public DateTime UpdatedOn { get => updatedOn; set => updatedOn = value; }
         public long UpdatedBy { get => updatedBy; set => updatedBy = value; }
@@ -63,7 +63,7 @@ namespace OnBoarding.Models
         public string Name { get => name; set => name = value; }
         public string Email { get => email; set => email = value; }
         public Organisation Organization { get => organization; set => organization = value; }
-        public DateTime CreatedOn { get => createdOn; set => createdOn = value; }
+        public DateTime CreatedOn { get => createdOn; set => createdOn = DateTime.Now; }
         public long CreatedBy { get => createdBy; set => createdBy = value; }
         public DateTime UpdatedOn { get => updatedOn; set => updatedOn = value; }
         public long UpdatedBy { get => updatedBy; set => updatedBy = value; }
@@ -95,7 +95,7 @@ namespace OnBoarding.Models
         public string Email { get => email; set => email = value; }
         public string Password { get => password; set => password = value; }
         public string LogoUrl { get => logoUrl; set => logoUrl = value; }
-        public DateTime CreatedOn { get => createdOn; set => createdOn = value; }
+        public DateTime CreatedOn { get => createdOn; set => createdOn = DateTime.Now; }
         public long CreatedBy { get => createdBy; set => createdBy = value; }
         public DateTime UpdatedOn { get => updatedOn; set => updatedOn = value; }
         public long UpdatedBy { get => updatedBy; set => updatedBy = value; }

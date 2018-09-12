@@ -47,7 +47,6 @@ namespace OnBoarding.Services
                     ProfileImgUrl = info[indexOfProfileImage].Trim('\"'),
                     Department = _context.Department.FirstOrDefault(x => x.DepartmentName == info[indexOfDepartment].Trim('\"')) ?? new Department { DepartmentName = info[indexOfDepartment].Trim('\"'), CreatedOn = DateTime.Now, UpdatedOn = DateTime.Now },
                     Organization = _context.Organisation.FirstOrDefault(x => x.OrganisationName == Organisation.OrganisationName) ?? Organisation,
-                    CreatedOn = DateTime.Now,
                     UpdatedOn = DateTime.Now
                 };
 
@@ -55,6 +54,12 @@ namespace OnBoarding.Services
                 await _context.SaveChangesAsync();
             }
         }
+
+        public string GetUserName(long id)
+        {
+            return _context.Agent.FirstOrDefault(x => x.Id == id).Name;
+        }
+
         public IEnumerable<Agent> RetrieveAgent()
         {
             return _context.Agent.Include(x => x.Department).Include(x => x.Organization);
